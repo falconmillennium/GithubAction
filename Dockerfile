@@ -10,6 +10,6 @@ FROM openjdk:11-jre-slim
 
 WORKDIR /app
 
-COPY --from=build /project/target/helloworld-1.0-SNAPSHOT.jar ./
+COPY --from=build /project/target/my-first-app-on-aws-ecr-1.0-SNAPSHOT.jar ./
 
-CMD ["java", "-jar", "./helloworld-1.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "./my-first-app-on-aws-ecr-1.0-SNAPSHOT.jar"]
