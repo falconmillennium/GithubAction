@@ -25,6 +25,7 @@
         - name: Get commit hash
           id: get-commit-hash
           run: echo "::set-output name=commit-hash::$(git rev-parse --short HEAD)"
+        
         - name: Get timestamp
           id: get-timestamp
           run: echo "::set-output name=timestamp::$(date +'%Y-%m-%d-%H-%M')"
@@ -34,7 +35,7 @@
           env:
             ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
             ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
-            IMAGE_TAG: ${{ steps.get-commit-hash.outputs.commit-hash }}-${{ steps.get-timestamp.outputs.timestamp }}
+            IMAGE_TAG: ${{ steps.build-image.outputs.image }}
           run: |
             docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
             docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
